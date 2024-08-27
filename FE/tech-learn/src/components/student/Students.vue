@@ -20,26 +20,51 @@
                 <router-link :to="{name:'StudentDetail', params: {id: student.id}}">
                     update
                 </router-link>
-                <button @click="handleDelete(student)">Delete</button>
+                <button @click="openModal(student)">Delete</button>
             </td>
         </tr>
     </tbody>
   </table>
+
+  <Modal
+    v-if="showModal"
+    @confirm="handleDelete(selectedObject)"
+    @close="closeModal"
+    />
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
-        let list = ref();
-        onMounted(()=> {
-            axios.get("http://localhost:3000/student")
-            .then(response => (list.value = response.data));
-        });
+import Modal from '../Modal/Modal.vue';
 
-        const  handleDelete= async (i) =>{
-            axios.delete(`http://localhost:3000/student/${i.id}`)
-            .then(response => (list.value = list.value.filter((item) => item.id !== i.id)));
-        }
+    let list = ref();
+    let showModal = ref(false);
+    let selectedObject = ref(null);
+
+    onMounted(()=> {
+        axios.get("http://localhost:3000/student")
+        .then(response => (list.value = response.data));
+    });
+
+    const  handleDelete= async (data) =>{
+        axios.delete(`http://localhost:3000/student/${data.id}`)
+        .then(response => (list.value = list.value.filter((item) => item.id !== data.id)));
+        closeModal();
+    }
+
+    const closeModal = () => {
+        showModal.value = false;
+        console.log(showModal.value);
+    }
+
+    const openModal = (object) => {
+        console.log(showModal.value);
+        selectedObject.value = object;
+        showModal.value = true;
+    }
+
+
 </script>
 
 <style>

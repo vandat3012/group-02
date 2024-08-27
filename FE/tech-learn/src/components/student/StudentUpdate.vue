@@ -42,7 +42,8 @@ const handleSubmit = async () => {
 
   const response = await axios.put(`http://localhost:3000/student/${studentId}` ,form );
   if (response.status === 200) {
-    toast.success("Update Success!")
+    toast.success("Update Success!");
+    router.push("/");
   } else{
     toast.error("Update Error, Try Later !")
   }

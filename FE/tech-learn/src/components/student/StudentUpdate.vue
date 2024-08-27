@@ -11,49 +11,41 @@
 </template>
 
 <script setup>
+import axios from 'axios';
 import { ref, onMounted, reactive } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { toast } from 'vue3-toastify';
 const form = reactive({
-name:"",
-age:""
+  name:"",
+  age:""
 });
-
-
-
 
 const router = useRouter();
 const route = useRoute();
 
-
 onMounted(() => {
   const studentId = route.params.id;
-//   console.log(studentId);
-  fetch(`http://localhost:3000/student/${studentId}`)
-    .then((res) => res.json())
-    .then((data) => {
-    //  console.log(data);
-    form.age = data.age;
-    form.name = data.name;
-    })
-    .catch((err) => console.log(err));
-});
+  axios.get(`http://localhost:3000/student/${studentId}`)
+  .then(res => {
+    form.age = res.data.age;
+    form.name = res.data.name;
+  })
+  .catch(error => {
+    console.error(error);
+  });
+})
 
-function handleSubmit() {
+
+
+const handleSubmit = async () => {
   const studentId = route.params.id;
 
-  fetch(`http://localhost:3000/student/` + studentId, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(form),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log('Student updated:', data);
-      router.push({ name: 'StudentList' });
-    })
-    .catch((err) => console.log(err));
+  const response = await axios.put(`http://localhost:3000/student/${studentId}` ,form );
+  if (response.status === 200) {
+    toast.success("Update Success!")
+  } else{
+    toast.error("Update Error, Try Later !")
+  }
 }
 </script>
 

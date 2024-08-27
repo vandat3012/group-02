@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Students from '@/components/student/Students.vue'
-import CreateStudent from '@/components/student/CreateStudent.vue'
+import CreateStudent from '@/components/student/StudentCreate.vue'
 import StudentUpdate from '@/components/student/StudentUpdate.vue'
+import NotFound from '@/components/NotFound/NotFound.vue'
 
 const routes = [
   {
@@ -20,6 +21,11 @@ const routes = [
     name: 'CreateStudent',
     component: CreateStudent,
     props: true
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: 'NotFound',
+    component: NotFound 
   }
 ]
 

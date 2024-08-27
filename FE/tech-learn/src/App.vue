@@ -1,14 +1,10 @@
 <script setup>
-
+import 'vue3-toastify/dist/index.css';
 import {RouterView} from 'vue-router'
 
 </script>
 
 <template>
-  <!-- <nav>
-    <router-link to="/">Home</router-link> |
- 
-  </nav> -->
   <RouterView/>
 </template>
 

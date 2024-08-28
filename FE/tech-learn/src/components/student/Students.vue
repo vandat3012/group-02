@@ -1,10 +1,13 @@
 <template>
-    <button >
-        <router-link :to="{name : 'CreateStudent'}">
-            Add
-        </router-link>
+     <div class="col-md-12 d-flex justify-content-start my-4">
+    <button class="btn btn-primary custom-btn">
+      <router-link to="{name: 'CreateStudent'}" class="text-white text-decoration-none">
+        Add +
+      </router-link>
     </button>
-  <table v-if="list">
+  </div>
+
+  <table v-if="list"  class="table table-hover">
     <thead>
         <th>id</th>
         <th>name</th>
@@ -25,12 +28,10 @@
         </tr>
     </tbody>
   </table>
-
   <Modal
-    v-if="showModal"
-    @confirm="handleDelete(selectedObject)"
+    @confirm="handleDelete(seletedObject)"
     @close="closeModal"
-    />
+  ></Modal>
 </template>
 
 <script setup>
@@ -39,8 +40,12 @@ import axios from 'axios';
 import Modal from '../Modal/Modal.vue';
 
     let list = ref();
-    let showModal = ref(false);
-    let selectedObject = ref(null);
+    let seletedObject = ref();
+    let myModal;
+
+    onMounted(() => {
+        myModal = new bootstrap.Modal(document.getElementById("exampleModal"))
+    })
 
     onMounted(()=> {
         axios.get("http://localhost:3000/student")
@@ -50,18 +55,13 @@ import Modal from '../Modal/Modal.vue';
     const  handleDelete= async (data) =>{
         axios.delete(`http://localhost:3000/student/${data.id}`)
         .then(response => (list.value = list.value.filter((item) => item.id !== data.id)));
-        closeModal();
+        myModal.hide()
     }
 
-    const closeModal = () => {
-        showModal.value = false;
-        console.log(showModal.value);
-    }
 
-    const openModal = (object) => {
-        console.log(showModal.value);
-        selectedObject.value = object;
-        showModal.value = true;
+    const openModal = (student) => {
+        seletedObject.value = student;
+        myModal.show();
     }
 
 

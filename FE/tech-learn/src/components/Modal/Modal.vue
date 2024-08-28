@@ -1,48 +1,40 @@
 <template>
-  <div class="modal-overlay" @click.self="closeModal">
-    <div class="modal">
-      <h3>Confirm Deletion</h3>
-      <p>Are you sure you want to delete?</p>
-      <button @click="confirmDelete">Yes</button>
-      <button @click="closeModal">No</button>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Xác nhận muốn xóa !!!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closeModal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+      <div class="modal-body">
+        Bạn có chắc chắn xóa không?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="closeModal">Đóng</button>
+        <button type="button" class="btn btn-primary" @click="confirmDelete">Xóa</button>
+      </div>
     </div>
   </div>
-</template>
-<script setup>
-import { defineEmits } from 'vue';
-import { toast } from 'vue3-toastify';
-const emit = defineEmits(['confirm', 'close']);
+</div>
+  </template>
+  <script setup>
+  import { defineEmits } from 'vue';
+  const emit = defineEmits(['confirm', 'close']);
 
-const confirmDelete = () => {
-  emit('confirm');
-  toast.success("Delete success !", {
-    autoClose: 2000
-  });
-};
 
-const closeModal = () => {
-  emit('close');
-};
 
-</script>
+  const confirmDelete = () => {
+    emit('confirm');
+  };
 
-<style>
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  const closeModal = () => {    
+    emit('close');
+  };
 
-.modal {
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
-  text-align: center;
-}
-</style>
+  </script>
+
+  <style >
+
+  </style>

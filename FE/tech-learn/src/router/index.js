@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Students from '@/components/student/Students.vue'
-import CreateStudent from '@/components/student/StudentCreate.vue'
-import StudentUpdate from '@/components/student/StudentUpdate.vue'
+import Students from '@/components/Student/Students.vue'
+import CreateStudent from '@/components/Student/StudentCreate.vue'
+import StudentUpdate from '@/components/Student/StudentUpdate.vue'
 import NotFound from '@/components/NotFound/NotFound.vue'
 
 const routes = [

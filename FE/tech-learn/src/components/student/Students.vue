@@ -210,7 +210,7 @@ const closeModal = () => {
 }
 
 .btn-danger {
-  background-color: #dc3545;
+  background-color: #d63848;
   border: none;
   color: #ffffff;
   padding: 6px 12px;

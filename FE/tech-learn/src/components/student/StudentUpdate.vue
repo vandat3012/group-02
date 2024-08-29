@@ -1,8 +1,9 @@
 <template>
   <form @submit.prevent="onSubmit" class="form-container">
+    <h1>Cập nhật</h1>
     <div class="form-group">
-      <label for="name">Name:</label>
-      <input id="name" v-model="name" type="text" class="form-input" />
+      <label for="fullName">Name:</label>
+      <input id="fullName" v-model="fullName" type="text" class="form-input" />
       <span class="form-error">{{ nameError }}</span>
     </div>
     <div class="form-group">
@@ -28,7 +29,7 @@ const route = useRoute();
 
 const { handleSubmit, resetForm } = useForm({
   validationSchema: yup.object({
-    name: yup.string().required("Name is required"),
+    fullName: yup.string().required("Name is required"),
     age: yup
       .number()
       .typeError("Age must be a number")
@@ -37,15 +38,16 @@ const { handleSubmit, resetForm } = useForm({
   }),
 });
 
-const { value: name, errorMessage: nameError, setValue: setName } = useField("name");
+const { value: fullName, errorMessage: nameError, setValue: setFullName } = useField("fullName");
 const { value: age, errorMessage: ageError, setValue: setAge } = useField("age");
 
 onMounted(() => {
   const studentId = route.params.id;
-  axios.get(`${rootApi}/student/${studentId}`)
+  axios.get(`${rootApi}/api/v1/users/${studentId}`)
     .then(res => {
-      setName(res.data.name);
-      setAge(res.data.age);
+      console.log(res.data.data)
+      setFullName(res.data.data.fullName);
+      setAge(res.data.data.age);
     })
     .catch(error => {
       console.error(error);
@@ -55,8 +57,9 @@ onMounted(() => {
 const onSubmit = handleSubmit(async (values) => {
   const studentId = route.params.id;
   try {
-    const response = await axios.put(`${rootApi}/student/${studentId}`, values);
+    const response = await axios.put(`${rootApi}/api/v1/users/${studentId}`, values);
     if (response.status === 200) {
+      console.log(values)
       resetForm();
       router.push("/").then(() => {
         toast.success("Update success!", {

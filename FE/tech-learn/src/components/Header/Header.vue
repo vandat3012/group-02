@@ -32,7 +32,7 @@ import { ref } from 'vue';
 
 <style scoped>
 .header-container {
-    background-color: #0071c5;
+    background-color: #1d44f2;
     width: 100%;
     height: 50px;
 }
@@ -68,7 +68,7 @@ import { ref } from 'vue';
 .header-search div {
     border-radius: 0 20px 20px 0;
     color: #fff;
-    background-color: #00cbff;
+    background-color: #66bad6;
     width: 30%;
     height: 38px;
     display: flex;

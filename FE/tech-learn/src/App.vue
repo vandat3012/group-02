@@ -5,8 +5,10 @@
     <div class="content">
       <RouterView/>
     </div>
+    
   </div>
   <Footer class="footer"></Footer>
+
 </template>
 <script setup>
 import Header from './components/Header/Header.vue';

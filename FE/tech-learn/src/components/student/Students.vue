@@ -159,7 +159,7 @@
   }
   
   .btn-danger:hover {
-    background-color: #c82333;
+    background-color: #d62839;
   }
   
   .custom-modal .modal-dialog {

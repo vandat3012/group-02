@@ -1,8 +1,9 @@
 <template>
   <form @submit.prevent="onSubmit" class="student-form">
+    <h1>Thêm mới</h1>
     <div class="form-group">
-      <label for="name">Name:</label>
-      <input id="name" v-model="name" type="text" class="form-control" />
+      <label for="fullName">Name:</label>
+      <input id="fullName" v-model="fullName" type="text" class="form-control" />
       <span class="error-message">{{ nameError }}</span>
     </div>
     <div class="form-group">
@@ -28,7 +29,7 @@ const router = useRouter();
 
 const { handleSubmit, resetForm } = useForm({
   validationSchema: yup.object({
-    name: yup.string().required('Name is required'),
+    fullName: yup.string().required('Name is required'),
     age: yup
       .number()
       .typeError('Age must be a number')
@@ -37,13 +38,13 @@ const { handleSubmit, resetForm } = useForm({
   }),
 });
 
-const { value: name, errorMessage: nameError } = useField('name');
+const { value: fullName, errorMessage: nameError } = useField('fullName');
 const { value: age, errorMessage: ageError } = useField('age');
 
 const onSubmit = handleSubmit(async (values) => {
   try {
-    const response = await axios.post(`${rootApi}/student`, values);
-    if (response.status === 201) {
+    const response = await axios.post(`${rootApi}/api/v1/users`, values);
+    if (response.status === 200) {
       resetForm();
       router.push('/').then(() => {
         toast.success('Create success!', {
@@ -98,17 +99,16 @@ label {
 .submit-btn {
   background-color: #007bff;
   color: #ffffff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
 }
 
 .submit-btn:hover {
-  background-color: #0056b3;
+  opacity: 0.5;
 }
 </style>
 

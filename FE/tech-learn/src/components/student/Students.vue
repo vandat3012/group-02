@@ -20,7 +20,7 @@
         <tbody>
           <tr v-for="student in list" :key="student.id">
             <td>{{ student.id }}</td>
-            <td>{{ student.name }}</td>
+            <td>{{ student.fullName }}</td>
             <td>{{ student.age }}</td>
             <td>
               <router-link :to="{ name: 'StudentDetail', params: { id: student.id } }" class="btn btn-info">
@@ -57,16 +57,18 @@
   
   const fetchStudents = async () => {
     try {
-      const response = await axios.get(`${rootApi}/student`);
-      list.value = response.data || [];
+      const response = await axios.get(`${rootApi}/api/v1/users`);
+      list.value = response.data.data.items;
+      console.log(response.data.data.items)
     } catch (error) {
       console.error('Error fetching students:', error);
     }
   };
+
   
   const handleDelete = async (data) => {
     try {
-      await axios.delete(`${rootApi}/student/${data.id}`);
+      await axios.delete(`${rootApi}/api/v1/users/${data.id}`);
       list.value = list.value.filter((item) => item.id !== data.id);
       closeModal();
     } catch (error) {

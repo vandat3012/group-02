@@ -37,7 +37,6 @@ const { handleSubmit, resetForm } = useForm({
     age: yup
       .number()
       .typeError('*Phải là số')
-      .positive('*Chỉ chứa số dương')
       .required('*Hãy nhập tuổi')
       .min(16, "* Tuổi phải lớn hơn 16")
       .max(70,"*Tuổi bé lớn hơn 70"),
@@ -117,4 +116,3 @@ label {
   opacity: 0.5;
 }
 </style>
-

@@ -4,7 +4,7 @@
         <div class="div-right">
             <img alt="Logo" src="#"/>
             <div class="header-search">
-                <input class="input-search"/>
+                <input class="input-search" placeholder="Nhập Từ Khóa"/>
                 <div>
                     <span>Tìm kiếm</span>
                 </div>

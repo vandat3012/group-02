@@ -1,13 +1,13 @@
 <template>
     <div class="container">
       <div class="button-container">
-        <button class="btn btn-primary">
-          <router-link :to="{ name: 'StudentCreate' }" class="link-text">
+        <router-link :to="{ name: 'StudentCreate' }" class="link-text">
+            <button class="btn btn-primary">
             Add +
+          </button>
           </router-link>
-        </button>
       </div>
-  
+
       <table v-if="list" class="styled-table">
         <thead>
           <tr>
@@ -39,33 +39,33 @@
       ></Modal>
     </div>
   </template>
-  
+
   <script setup>
   import { onMounted, ref } from 'vue';
   import axios from 'axios';
   import Modal from '../Modal/Modal.vue';
-  
+
   const list = ref([]);
   const seletedObject = ref(null);
   const myModal = ref(null);
   const rootApi = process.env.VUE_APP_ROOT_API;
-  
+
   onMounted(() => {
     myModal.value = new bootstrap.Modal(document.getElementById("exampleModal"));
     fetchStudents();
   });
-  
+
   const fetchStudents = async () => {
     try {
       const response = await axios.get(`${rootApi}/api/v1/users`);
-      list.value = response.data.data.items;
-      console.log(response.data.data.items)
+      list.value = response.data.result.items;
+      console.log(response.data.result.items)
     } catch (error) {
       console.error('Error fetching students:', error);
     }
   };
 
-  
+
   const handleDelete = async (data) => {
     try {
       await axios.delete(`${rootApi}/api/v1/users/${data.id}`);
@@ -75,17 +75,17 @@
       console.error('Error deleting student:', error);
     }
   };
-  
+
   const openModal = (student) => {
     seletedObject.value = student;
     myModal.value.show();
   };
-  
+
   const closeModal = () => {
     myModal.value.hide();
   };
   </script>
-  
+
   <style scoped>
   .container {
     max-width: 1200px;

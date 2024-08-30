@@ -3,12 +3,12 @@
     <h1>Thêm mới</h1>
     <div class="form-group">
       <label for="fullName">Name:</label>
-      <input id="fullName" v-model="fullName" type="text" class="form-control" />
+      <input id="fullName" v-model="fullName" type="text" class="form-control" placeholder="Hãy Nhập Tên" />
       <span class="error-message">{{ nameError }}</span>
     </div>
     <div class="form-group">
       <label for="age">Age:</label>
-      <input id="age" v-model="age" type="number" class="form-control" />
+      <input id="age" v-model="age" type="number" class="form-control"  placeholder="Hãy Nhập Tuổi" />
       <span class="error-message">{{ ageError }}</span>
     </div>
     <button type="submit" class="submit-btn">Submit</button>
@@ -29,12 +29,18 @@ const router = useRouter();
 
 const { handleSubmit, resetForm } = useForm({
   validationSchema: yup.object({
-    fullName: yup.string().required('Name is required'),
+    fullName: yup
+    .string()
+    .required('*Hãy nhập tên')
+    .matches(/^[\p{L}\s]+$/u, "*Chỉ chứa kí tự chữ và khoảng trắng")
+    ,
     age: yup
       .number()
-      .typeError('Age must be a number')
-      .positive('Age must be a positive number')
-      .required('Age is required'),
+      .typeError('*Phải là số')
+      .positive('*Chỉ chứa số dương')
+      .required('*Hãy nhập tuổi')
+      .min(16, "* Tuổi phải lớn hơn 16")
+      .max(70,"*Tuổi bé lớn hơn 70"),
   }),
 });
 
@@ -47,12 +53,12 @@ const onSubmit = handleSubmit(async (values) => {
     if (response.status === 200) {
       resetForm();
       router.push('/').then(() => {
-        toast.success('Create success!', {
+        toast.success('Thêm mới thành công!', {
           autoClose: 2000
         });
       });
     } else {
-      toast.error('Create failed!');
+      toast.error('Thêm mới thất bại!');
     }
   } catch (error) {
     toast.error('An error occurred while creating the student!');

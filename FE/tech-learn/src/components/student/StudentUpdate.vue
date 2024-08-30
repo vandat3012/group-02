@@ -3,12 +3,12 @@
     <h1>Cập nhật</h1>
     <div class="form-group">
       <label for="fullName">Name:</label>
-      <input id="fullName" v-model="fullName" type="text" class="form-input" />
+      <input id="fullName" v-model="fullName" type="text" class="form-input" placeholder="Hãy Nhập Tên"/>
       <span class="form-error">{{ nameError }}</span>
     </div>
     <div class="form-group">
       <label for="age">Age:</label>
-      <input id="age" v-model="age" type="number" class="form-input" />
+      <input id="age" v-model="age" type="number" class="form-input" placeholder="Hãy Nhập Tuổi"  />
       <span class="form-error">{{ ageError }}</span>
     </div>
     <button type="submit" class="form-submit">Submit</button>
@@ -29,12 +29,17 @@ const route = useRoute();
 
 const { handleSubmit, resetForm } = useForm({
   validationSchema: yup.object({
-    fullName: yup.string().required("Name is required"),
+    fullName: yup
+    .string()
+    .required("*Hãy nhập tên")
+    .matches(/^[\p{L}\s]+$/u, "*Chỉ chứa kí tự chữ và khoảng trắng"),
     age: yup
       .number()
-      .typeError("Age must be a number")
-      .positive("Age must be a positive number")
-      .required("Age is required"),
+      .typeError('*Phải là số')
+      .positive('*Chỉ chứa số dương')
+      .required('*Hãy nhập tuổi')
+      .min(16, "*Tuổi phải lớn hơn 16")
+      .max(70,"*Tuổi bé lớn hơn 70"),
   }),
 });
 
@@ -45,9 +50,9 @@ onMounted(() => {
   const studentId = route.params.id;
   axios.get(`${rootApi}/api/v1/users/${studentId}`)
     .then(res => {
-      console.log(res.data.data)
-      setFullName(res.data.data.fullName);
-      setAge(res.data.data.age);
+      console.log(res.data.result)
+      setFullName(res.data.result.fullName);
+      setAge(res.data.result.age);
     })
     .catch(error => {
       console.error(error);
@@ -62,12 +67,12 @@ const onSubmit = handleSubmit(async (values) => {
       console.log(values)
       resetForm();
       router.push("/").then(() => {
-        toast.success("Update success!", {
+        toast.success("Cập nhật thành công!", {
           autoClose: 2000
         });
       });
     } else {
-      toast.error("Update Error, Try Later!");
+      toast.error("Cập nhật thất bại, Thử lại sau!");
     }
   } catch (error) {
     toast.error("An error occurred while updating the student!");

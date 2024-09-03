@@ -28,7 +28,6 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2C3E50;
 }
 .home-page{
@@ -46,7 +45,6 @@ body {
   grid-area: header;
 }
 .navbar {
-  margin-top: 10px;
   grid-area: navbar;
 }
 .content {

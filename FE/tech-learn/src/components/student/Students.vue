@@ -1,5 +1,6 @@
+
 <template>
-  <div class="container">
+   <div class="container">
     <div class="button-container">
       <button class="btn btn-primary">
         <router-link :to="{ name: 'StudentCreate' }" class="link-text">
@@ -55,6 +56,7 @@
   </div>
 </template>
 
+
 <script setup>
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
@@ -82,8 +84,8 @@ const fetchStudents = async (page = 1) => {
         limit: pageSize.value,
       },
     });
-    list.value = response.data.data.items || [];
-    totalPage.value = response.data.data.totalPage || 1;
+    list.value = response.data.result.items || [];
+    totalPage.value = response.data.result.totalPage || 1;
     currentPage.value = page;
     updatePagesToShow();
   } catch (error) {

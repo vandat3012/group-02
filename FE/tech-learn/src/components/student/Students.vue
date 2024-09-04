@@ -1,13 +1,13 @@
 
 <template>
-  <div class="container">
-   <div class="button-container">
-     <button class="btn btn-primary">
-       <router-link :to="{ name: 'StudentCreate' }" class="link-text">
-         Add +
-       </router-link>
-     </button>
-   </div>
+   <div class="container">
+    <div class="button-container">
+      <button class="btn btn-primary">
+        <router-link :to="{ name: 'StudentCreate' }" class="link-text">
+          Add +
+        </router-link>
+      </button>
+    </div>
 
    <table v-if="list.length" class="styled-table">
      <thead>

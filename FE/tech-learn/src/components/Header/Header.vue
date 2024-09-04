@@ -2,9 +2,9 @@
   <header class="header-container">
     <div class="header-maxwidth">
         <div class="div-right">
-            <img alt="Logo" src="#"/>
+            <img alt="Logo" src="https://www.dongdu.studyarts.vn/static/images/logo-jp.png"/>
             <div class="header-search">
-                <input class="input-search"/>
+                <input class="input-search" placeholder="Nhập Từ Khóa"/>
                 <div>
                     <span>Tìm kiếm</span>
                 </div>

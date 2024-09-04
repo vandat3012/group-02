@@ -25,32 +25,31 @@ const selectedItem = ref(0);
 
 const handleSelect = (e) => {
     selectedItem.value = e
-    
+
 }
 </script>
 
 <style scoped>
 .navbar-container {
-    background-color: #eee;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .list-item{
-    padding: 5px;
+    /* padding: 5px; */
 }
 .item {
     padding: 10px;
     cursor: pointer;
-    margin: 5px;
+    margin: 20px 5px;
     display: flex;
-    justify-content: center;
+    border-bottom: 1px solid #ddd;
 
 }
 
 .active {
-    background-color: #0071c5;
-    color: #fff;
+    background-color: #eee;
     font-weight: bold;
     border-radius: 5px;
 }

@@ -45,9 +45,9 @@ onMounted(() => {
   const studentId = route.params.id;
   axios.get(`${rootApi}/api/v1/users/${studentId}`)
     .then(res => {
-      console.log(res.data.data)
-      setFullName(res.data.data.fullName);
-      setAge(res.data.data.age);
+      console.log(res.data.result)
+      setFullName(res.data.result.fullName);
+      setAge(res.data.result.age);
     })
     .catch(error => {
       console.error(error);
